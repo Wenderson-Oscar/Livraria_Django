@@ -1,0 +1,15 @@
+{% extends 'livraria/base.html' %}
+{% block content %}
+    <table>
+        <tr>
+            <td>
+            {% for autor in autores %}<br>
+
+                {{autor.nome}}
+                {{autor.livros}}
+        
+            {% endfor %}
+            </td>
+        </tr>
+    </table>    
+{% endblock %}

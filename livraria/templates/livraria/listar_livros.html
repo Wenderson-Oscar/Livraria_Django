@@ -1,0 +1,30 @@
+{% extends 'livraria/base.html' %}
+{% block content %}
+    <br>
+    <table class="table">
+        {% for livro in livros %}
+            <tr>
+                <td>
+                    Nome: {{ livro.nome }}<br/>
+                    Código: {{ livro.codigo }}<br/>
+                    Ano: {{ livro.ano }}<br/>
+                    Valor: {{ livro.valor }}<br/>
+                    Descrição: {{ livro.descricao }}<br>
+                    <a href="{% url 'detalhar_livro' id=livro.id %}">
+                        <img height="300" width="200" src="{{ livro.imagem.url}}">
+                    </a>
+                    <br/>
+                    Autores: <br/>
+                    {% for nome in livro.autor.all %}
+                        {{ nome }}<br/>
+                    {% endfor %}
+                    <td>
+                        <a class="btn btn-default" href="">
+                            <button type="button" class="btn btn-danger">Baixar</button>
+                        </a>
+                    </td>
+                </td>
+            </tr>
+        {% endfor %}
+    </table> 
+{% endblock %}

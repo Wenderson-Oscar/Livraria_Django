@@ -1,0 +1,14 @@
+{% extends 'livraria/base.html' %}
+{% block content %}
+    <table>
+        <tr>
+            <td>
+            {% for categoria in categorias %}<br>
+
+                {{categoria.nome}}
+        
+            {% endfor %}
+            </td>
+        </tr>
+    </table>    
+{% endblock %}
