@@ -1,4 +1,5 @@
 # Sistema De Livraria em Django
+🏫 (Atividade Acadêmica)
 
 ## 🛠️ Em Desenvolvimento
 
