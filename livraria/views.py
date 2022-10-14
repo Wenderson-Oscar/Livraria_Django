@@ -1,5 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from livraria.models import Autor, Categoria, Livro
+from livraria.forms import LivroForm 
+import imghdr
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -28,6 +30,37 @@ def buscar_livro(request):
     infor = request.POST['infor']
     livros = Livro.objects.filter(nome__contains=infor)
     return render(request, 'livraria/listar_livros.html', {'livros':livros})
+
+
+def editar_livro(request, id):
+    livro = get_object_or_404(Livro, pk=id)
+    if request.method == "POST":
+        form = LivroForm(request.POST, request.FILES, instance=livro)
+        if form.is_valid():
+            livro = form.save(commit=False)
+            form.save()
+            return redirect('detalhar_livro', id=livro.id)
+    else:
+        form = LivroForm(instance=livro)
+    return render(request, 'livraria/editar_livro.html', {'form': form})
+
+
+def cadastrar_livro(request):
+    if request.method == "POST":
+        form = LivroForm(request.POST, request.FILES)
+        if form.is_valid():
+            livro = form.save(commit=False)
+            img = request.FILES
+            dados_img = imghdr.what(img['imagem'])
+            if dados_img == 'png' or dados_img == 'jpeg':
+                form.save()
+                return redirect('detalhar_livro', id=livro.id)
+            else:
+                form = LivroForm()
+                return render(request, 'livraria/editar_livro.html', {'form': form})             
+    else:
+        form = LivroForm()
+    return render(request, 'livraria/editar_livro.html', {'form': form})
 
 
 def detalhar_livro(request, id):

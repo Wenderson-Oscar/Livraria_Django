@@ -1,14 +1,23 @@
 {% extends 'livraria/base.html' %}
 
 {% block content %}
+    <br>
     <h3>{{ livro.nome }}</h3>
         Código: {{ livro.codigo }}<br/>
         Ano: {{ livro.ano }}<br/>
-        <img height="300" width="200" src="{{ livro.imagem.url }}"> 
         Valor: {{ livro.valor }}<br/>
         Autores: <br/>
         {% for nome in livro.autor.all %}
-            {{ nome }}<br/>
-        {% endfor %}     
+            {{ nome }}<br>
+        {% endfor %}
+        <img height="300" width="200" src="{{ livro.imagem.url }}"> 
+        <div>
+        Descrição: {{ livro.descricao }}
+        </div>
             <br>
+            <td>
+                <a class="btn btn-default" href="">
+                    <button type="button" class="btn btn-danger">Baixar</button>
+                </a>
+            </td>
 {% endblock %}

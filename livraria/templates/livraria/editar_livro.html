@@ -1,0 +1,20 @@
+{% extends 'livraria/base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <h3>Hello my friend {{user.username}}</h3>
+    {% else %}
+        <p>Você precisa realiar o login</p>
+    {% endif %}
+    <br>
+    {% if user.is_authenticated %}
+        <h2>Novo livro</h2>
+        <form method="POST" class="table" enctype="multipart/form-data">
+        {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" class="save btn btn-default">Save</button>
+        </form>
+    {% endif %}
+{% endblock %}
